@@ -17,6 +17,14 @@ service EchoService {
   }
 }
 
+service GreetService {
+  rpc GreetService (EchoMessage) returns (EchoMessage) {
+    option (google.api.http) = {
+      get: "/v1/greet"
+    };
+  }
+}
+
 message EchoMessage {
   string message = 1;
 }
