@@ -12,66 +12,61 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 service TaskService {
-  rpc GetTaskService (TaskInbound) returns (TaskOutbound) {
-    option (google.api.http) = {
-      get: "/v1/task"
+    rpc GetTaskService (GetTaskInbound) returns (TaskOutbound) {
+        option (google.api.http) = {
+            post: "/v1/task/{task_id}"
+            additional_bindings {
+				get: "/v1/task/{task_id}"
+			}
     };
-  }
+    }
 
-  rpc GetTaskListService (TaskListInbound) returns (stream TaskOutbound) {
-    option (google.api.http) = {
-      get: "/v1/tasks"
+    rpc FindTaskService (FindTaskInbound) returns (stream TaskOutbound) {
+        option (google.api.http) = {
+            post: "/v1/task"
+            body: "*"
+            additional_bindings {
+				get: "/v1/tasks?page={page}"
+			}
     };
-  }
+    }
 
-  rpc CreateTaskService (CreateTaskInbound) returns (TaskOutbound) {
-    option (google.api.http) = {
-      post: "/v1/task"
-    };
-  }
+    rpc CreateTaskService (CreateTaskInbound) returns (TaskOutbound) {
+    }
 
-  rpc UpdateTaskService (UpdateTaskInbound) returns (TaskOutbound) {
-    option (google.api.http) = {
-      put: "/v1/task"
-    };
-  }
+    rpc UpdateTaskService (UpdateTaskInbound) returns (TaskOutbound) {
+    }
 
-  rpc DeleteTaskService (TaskInbound) returns (TaskOutbound) {
-    option (google.api.http) = {
-      delete: "/v1/task"
-    };
-  }
+    rpc DeleteTaskService (GetTaskInbound) returns (TaskOutbound) {
+    }
 
-  rpc FinishTaskService (TaskInbound) returns (TaskOutbound) {
-    option (google.api.http) = {
-      put: "/v1/task/finish"
-    };
-  }
+    rpc FinishTaskService (GetTaskInbound) returns (TaskOutbound) {
+    }
 }
 
-message TaskInbound {
-  uint32 task_id = 1;
+message GetTaskInbound {
+    uint32 task_id = 1;
 }
 
-message TaskListInbound {
-  google.protobuf.UInt32Value page = 1;
+message FindTaskInbound {
+    google.protobuf.UInt32Value page = 1;
 }
 
 message CreateTaskInbound {
-  string title = 1;
+    string title = 1;
 }
 
 message UpdateTaskInbound {
-  uint32 task_id = 1;
-  string title = 2;
+    uint32 task_id = 1;
+    string title = 2;
 }
 
 message TaskOutbound {
-  uint32 task_id = 1;
-  string title = 2;
-  google.protobuf.Timestamp finishedAt = 3;
-  google.protobuf.Timestamp createdAt = 4;
-  google.protobuf.Timestamp updatedAt = 5;
+    uint32 task_id = 1;
+    string title = 2;
+    google.protobuf.Timestamp finishedAt = 3;
+    google.protobuf.Timestamp createdAt = 4;
+    google.protobuf.Timestamp updatedAt = 5;
 }
 
 
