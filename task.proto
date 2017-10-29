@@ -16,14 +16,14 @@ service TaskService {
         option (google.api.http) = {
             post: "/v1/task"
             body: "*"
-			}
+			};
     }
 
     rpc FindTaskService (FindTaskInbound) returns (stream TaskOutbound) {
         option (google.api.http) = {
             post: "/v1/tasks"
             body: "*"
-			}
+			};
     }
 
     rpc CreateTaskService (CreateTaskInbound) returns (TaskOutbound) {
