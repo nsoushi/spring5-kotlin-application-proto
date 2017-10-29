@@ -14,14 +14,14 @@ import "google/protobuf/wrappers.proto";
 service TaskService {
     rpc GetTaskService (GetTaskInbound) returns (TaskOutbound) {
         option (google.api.http) = {
-            post: "/v1/task"
+            post: "/grpcgateway/task"
             body: "*"
 			};
     }
 
     rpc FindTaskService (FindTaskInbound) returns (stream TaskOutbound) {
         option (google.api.http) = {
-            post: "/v1/tasks"
+            post: "/grpcgateway/tasks"
             body: "*"
 			};
     }
