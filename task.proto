@@ -17,7 +17,6 @@ service TaskService {
             post: "/v1/task"
             body: "*"
 			}
-    };
     }
 
     rpc FindTaskService (FindTaskInbound) returns (stream TaskOutbound) {
@@ -25,7 +24,6 @@ service TaskService {
             post: "/v1/tasks"
             body: "*"
 			}
-    };
     }
 
     rpc CreateTaskService (CreateTaskInbound) returns (TaskOutbound) {
