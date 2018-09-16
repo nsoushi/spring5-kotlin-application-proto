@@ -10,6 +10,7 @@ package messages;
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
 
 service TaskService {
   rpc GetTaskService (TaskInbound) returns (TaskOutbound) {
@@ -47,6 +48,9 @@ service TaskService {
       put: "/v1/task/finish"
     };
   }
+
+  rpc GetTaskCount (google.protobuf.Empty) returns (TaskCountOutbound) {
+  }
 }
 
 message TaskInbound {
@@ -74,4 +78,6 @@ message TaskOutbound {
   google.protobuf.Timestamp updatedAt = 5;
 }
 
-
+message TaskCountOutbound {
+    uint32 count = 1;
+}
